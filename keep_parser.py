@@ -1,12 +1,28 @@
 #kp_16
 
 def reader():
-	myFile = 'text.txt'
+	myFile = 'keep09start.txt'
 	with open(myFile,'r') as reader:
 		alist = reader.readlines()
-				
+	
+	return alist
+
+def write(headers, data):
+	for i in range(len(headers)):
+		with open('_' + headers[i] + '.txt', 'w') as myFile:
+			myFile.write(headers[i])
+			myFile.wrtite(data[i])
+
+def write_files(headers, data):	
+	for i in range(len(headers)):
+		with open(headers[i]+'.txt','w') as my_file:
+			my_file.write(headers[i] +'\n')
+			my_file.writelines(data[i])
+
+	
 def get_data():
-	alist = ['\n#one','\n\ttext_one','\n#two','\n#one','\ntext_two']
+	alist = ['\n#one','\n\ttext_one','\n#two','\n#one','\ntext_two,#one,#two #three, five', '\n seven,!']
+	
 	return alist
 	
 
@@ -36,7 +52,7 @@ def parser(alist):
 	  
 	for item in alist:
 		if '#' in item and block_header == False:
-			headers.append(item)
+			headers.append(item[0:-1])
 			myStr = ''
 			block_header = True
 		elif '\n' in item and not '#' in item:
@@ -44,12 +60,13 @@ def parser(alist):
 			data.append(myStr)
 			block_header = False
 			myStr = ''
-	print(headers)
-	print(data)
+	
+	#write(headers, data)
+	write_files(headers, data)
+	print(headers)	
 
-alist = get_data()
+alist = reader()
 
-print(alist)
 parser(alist)
 
 
