@@ -53,17 +53,19 @@ def parser(alist):
 	for item in alist:
 		if '#' in item and block_header == False:
 			headers.append(item[0:-1])
+			data.append(myStr)
 			myStr = ''
 			block_header = True
+
 		elif '\n' in item and not '#' in item:
 			myStr = myStr + item
-			data.append(myStr)
 			block_header = False
-			myStr = ''
+
 	
 	#write(headers, data)
 	write_files(headers, data)
-	print(headers)	
+	print(headers)
+	print(data)	
 
 alist = reader()
 
